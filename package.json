@@ -1,0 +1,21 @@
+{
+  "name": "node-js-environment",
+  "version": "1.0.0",
+  "description": "Entorno de desarrollo para Node js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Alejandro Juárez",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "jwt-simple": "^0.5.5",
+    "moment": "^2.24.0",
+    "morgan": "^1.9.1",
+    "mysql2": "^1.6.5",
+    "sequelize": "^4.42.0",
+    "swig": "^1.4.2"
+  }
+}
