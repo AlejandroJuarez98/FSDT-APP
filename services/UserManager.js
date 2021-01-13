@@ -148,8 +148,9 @@ class UserManager {
 					})
 
 				let userEmail = body.email
-				let object = { userId: result.data.id, number: 15, value: 'minutes' }
-				let link = 'http://localhost:2000/reset-password-request/' + authentication.createToken(object)
+				let object = { userId: result.data.data.dataValues.id, number: 15, value: 'minutes' }
+
+				let link = 'http://localhost:2000/reset-password-request/' + authentication.createToken(object) + '#' + object.userId
 
 				let html = fs.readFileSync(path.join(__dirname, '..', 'views', 'mail-template.html'))
 				html = '' + html.toString('utf8')
@@ -192,7 +193,7 @@ class UserManager {
 	static resetPassword (body) {
 		return new Promise (async (resolve, reject) => {
 			try {
-				let result = await UserManager.resetPassword (body)
+				let result = await UserRepository.resetPassword (body)
 					.catch ((error) => {
 						throw error
 					})

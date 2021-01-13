@@ -10,8 +10,8 @@ const Controllers = require('../controllers')
 /** User **/
 router.post('/user/sign-in', Controllers.users.signIn)
 router.post('/user/sign-up', Controllers.users.signUp)
-router.post('/user/send-reset-password-request', Controllers.users.sendResetPasswordRequest)
 router.post('/user/reset-password', Controllers.users.resetPassword)
+router.post('/user/send-reset-password-request', Controllers.users.sendResetPasswordRequest)
 
 router.post('/user/save', Auth.ensureAuthenticated, Controllers.users.save)
 router.get('/user/get-users', Auth.ensureAuthenticated, Controllers.users.getAllUser)

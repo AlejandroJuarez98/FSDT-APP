@@ -1,0 +1,90 @@
+{% extends "./base.html" %}
+{% block title %} Users | Página principal  {% endblock %}
+{% block content %}
+<div class="home-container">
+	<nav class="navbar navbar-light nv-color shadow-md">
+	  <div class="container">
+	    <a class="navbar-brand" href="#">FullStack Developer Test</a>
+  		<ul class="navbar-nav mr-auto">
+				<li class="nav-item dropdown font-menu">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Cerrar Sesión</a></li>
+          </ul>
+        </li>
+  		</ul>
+	  </div>
+	</nav>
+
+	<div class="container">
+			<div class="row">
+				<div class="col-md-6 mt-5">						
+						<button type="button" class="btn btn-outline-dark"><a href="/dashboard" class="dhs-link"><i class="fas fa-undo-alt mr-2"></i> Regresar</a></button>
+						<button type="button" class="btn btn-outline-dark"><a href="/users/save" class="dhs-link">Nuevo</a></button>
+				</div>
+				<div class="col-md-6"></div>	
+			</div>
+
+			<table class="table usr-table-container">
+			  <thead>
+			    <tr>
+			      <th scope="col">Id</th>
+			      <th scope="col">Fullname</th>
+			      <th scope="col">Email</th>
+			      <th scope="col">Birthdate</th>
+			    </tr>
+			  </thead>
+			  <tbody id="data-rows">
+			    <tr>
+			      <td>1</td>
+			      <td>José Alejandro Juárez</td>
+			      <td>alejandrojuarezck@gmail.com</td>
+			      <td>1998/01/21</td>
+			    </tr>
+			    <tr>
+			      <td>2</td>
+			      <td>Selena Hernandez</td>
+			      <td>selena.hernandez@gmail.com</td>
+			      <td>1996/05/10</td>
+			    </tr>
+			    <tr>
+			      <td>3</td>
+			      <td>Yamilet Garcia</td>
+			      <td>Yamilet.garcia@gmail.com</td>
+			      <td>1997/05/10</td>
+			    </tr>
+			    <tr>
+			      <td>4</td>
+			      <td>Michelle Garcia</td>
+			      <td>michelle.rederos@gmail.com</td>
+			      <td>1997/05/10</td>
+			    </tr>
+			    <tr>
+			      <td>5</td>
+			      <td>Michelle Garcia</td>
+			      <td>michelle.rederos@gmail.com</td>
+			      <td>1997/05/10</td>
+			    </tr>
+			    <tr>
+			      <td>6</td>
+			      <td>Michelle Garcia</td>
+			      <td>michelle.rederos@gmail.com</td>
+			      <td>1997/05/10</td>
+			    </tr>
+			    <tr>
+			      <td>7</td>
+			      <td>Michelle Garcia</td>
+			      <td>michelle.rederos@gmail.com</td>
+			      <td>1997/05/10</td>
+			    </tr>
+			    <tr>
+			      <td>8</td>
+			      <td>Michelle Garcia</td>
+			      <td>michelle.rederos@gmail.com</td>
+			      <td>1997/05/10</td>
+			    </tr>
+			  </tbody>
+			</table>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "./base.html" %}
+{% block title %} Users | Página principal  {% endblock %}
+{% block content %}
+<div class="home-container">
+	<nav class="navbar navbar-light nv-color shadow-md">
+	  <div class="container">
+	    <a class="navbar-brand" href="#">FullStack Developer Test</a>
+  		<ul class="navbar-nav mr-auto">
+				<li class="nav-item dropdown font-menu">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Cerrar Sesión</a></li>
+          </ul>
+        </li>
+  		</ul>
+	  </div>
+	</nav>
+
+	<div class="container">
+			<div class="row">
+				<div class="col-md-6 mt-5">						
+					<button type="button" class="btn btn-outline-dark"><a href="/products" class="dhs-link"><i class="fas fa-undo-alt mr-2"></i> Regresar</a></button>			
+					<button type="button" class="btn btn-outline-dark"><a href="/products/save" class="dhs-link"> Guardar</a></button>
+				</div>
+				<div class="col-md-6"></div>	
+			</div>
+
+			<div class="form-control mt-3">
+				<div class="row">
+					<div class="col-md-6">
+						
+					</div>
+					<div class="col-md-6">
+						
+					</div>
+				</div>
+			</div>
+	</div>
+</div>
+{% endblock %}

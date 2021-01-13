@@ -1,0 +1,10 @@
+- FullStack Developer Test:
+	- Pasos de instalación de la aplicación:
+		- Acceder al repositorio github
+		- Abrir terminal de trabajo
+		- Descargar archivos necesarios para la instalación
+		- Ejecutar los siguientes comandos:
+			- npm install
+			- npm run install-xdevapi
+	- Requisitos:
+		- Contar con una instalación previa de MySQL Workbeanch

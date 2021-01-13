@@ -165,15 +165,18 @@ class UserRepository {
 		return new Promise (async (resolve, reject) => {
 			try {
 				let password = Cipher.encrypt(body.password)
-				let update = await User.update ({
+
+				let updatePass = await User.update ({
 					password: password
-				}, {
+				}, { 
 					where: { id: body.userId }
+				}).catch((error) => {
+					throw error
 				})
 
 				resolve ({
 					success: true,
-					data: update
+					data: updatePass
 				})
 			} catch (error) {
 				reject ({

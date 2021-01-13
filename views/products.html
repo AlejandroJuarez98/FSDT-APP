@@ -1,0 +1,99 @@
+{% extends "./base.html" %}
+{% block title %} Products | Página principal  {% endblock %}
+{% block content %}
+<div class="home-container">
+	<nav class="navbar navbar-light nv-color shadow-md">
+	  <div class="container">
+	    <a class="navbar-brand" href="#">FullStack Developer Test</a>
+  		<ul class="navbar-nav mr-auto">
+				<li class="nav-item dropdown font-menu">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Cerrar Sesión</a></li>
+          </ul>
+        </li>
+  		</ul>
+	  </div>
+	</nav>
+
+	<div class="container">
+			<div class="row">
+				<div class="col-md-6 mt-5">						
+					<button type="button" class="btn btn-outline-dark"><a href="/dashboard" class="dhs-link"><i class="fas fa-undo-alt mr-2"></i>Regresar</a></button>
+					<button type="button" class="btn btn-outline-dark"><a href="/products/save" class="dhs-link"><i class="fas fa-plus mr-2"></i> Nuevo</a></button>
+				</div>
+				<div class="col-md-6"></div>	
+			</div>
+
+			<table class="table usr-table-container">
+			  <thead>
+			    <tr>
+			      <th scope="col">Id</th>
+			      <th scope="col">SKU</th>
+			      <th scope="col">Name</th>
+			      <th scope="col">Quantity</th>
+			      <th scope="col">Price</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr>
+			      <td>1</td>
+			      <td>23847492</td>
+			      <td>Camisas</td>
+			      <td>20 Qty.</td>
+			      <td>Lorem ipsun dolor sit amet</td>
+			    </tr>
+			    <tr>
+			      <td>2</td>
+			      <td>23847492</td>
+			      <td>Short</td>
+			      <td>13 Qty.</td>
+			      <td>Lorem ipsun dolor sit amet</td>
+			    </tr>
+			    <tr>
+			      <td>3</td>
+			      <td>44312244</td>
+			      <td>Centro</td>
+			      <td>10 Qty.</td>
+			      <td>Lorem ipsun dolor sit amet</td>
+			    </tr>
+			    <tr>
+			    	<td>4</td>
+			      <td>23323444</td>
+			      <td>Zapatos</td>
+			      <td>5 Qty.</td>
+			      <td>Lorem ipsun dolor sit amet</td>
+			    </tr>
+			    <tr>
+			      <td>5</td>
+			      <td>23323444</td>
+			      <td>Zapatos</td>
+			      <td>5 Qty.</td>
+			      <td>Lorem ipsun dolor sit amet</td>
+			    </tr>
+			    <tr>
+			      <td>6</td>
+			      <td>23323444</td>
+			      <td>Sombrero</td>
+			      <td>5 Qty.</td>
+			      <td>Lorem ipsun dolor sit amet</td>
+			    </tr>
+			    <tr>
+			      <td>7</td>
+			      <td>23341444</td>
+			      <td>Camiseta</td>
+			      <td>11 Qty.</td>
+			      <td>Lorem ipsun dolor sit amet</td>
+			    </tr>
+			    <tr>
+			      <td>8</td>
+			      <td>23323444</td>
+			      <td>Pantalon</td>
+			      <td>11 Qty.</td>
+			      <td>Lorem ipsun dolor sit amet</td>
+			    </tr>
+				</tbody>
+		</table>
+	</div>
+</div>
+{% endblock %}
