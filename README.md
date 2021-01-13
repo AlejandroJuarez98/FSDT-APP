@@ -6,5 +6,7 @@
 		- Ejecutar los siguientes comandos:
 			- npm install
 			- npm run install-xdevapi
+			- Acceder a workbeanch y crear la base de datos: fsdtdb
+			- Ejecutar: sequelize db:migrate
 	- Requisitos:
 		- Contar con una instalación previa de MySQL Workbeanch
