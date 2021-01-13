@@ -7,6 +7,7 @@ const swig = require('swig'),
 	  express = require('express'),
 	  bodyParser = require('body-parser'),
 	  routes = require('./routes'),
+	  config = require('./auth/config'),
 	  application = express()
 
 class Server {
@@ -27,14 +28,16 @@ class Server {
 
 		application.use(logger('dev'))
 		application.use(bodyParser.json())
-		application.use(bodyParser.urlencoded({ extended: false }))
+		application.use(bodyParser.urlencoded({ extended: true }))
 
 		application.set('port', process.env.PORT || 2000)
-		application.use(express.static(path.join(__dirname, 'public')))
+		application.use('/assets/', express.static(path.join(__dirname, 'assets')))
+		application.use('/uploads/', express.static(path.join(__dirname, 'uploads')))
 	}
 
 	setRoutes () {
 		application.use('/', routes.base)
+		application.use('/api', routes.api)
 	}
 
 	start () {

@@ -1,0 +1,82 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.md-content-background {
+	width: 100%;
+	height: 100vh;
+	background: #2c3e50;
+	position: absolute;
+}
+
+.pg-content-background {
+	width: 100%;
+	height: 100vh;
+	background: #c0392b;
+}
+
+.se-text-center-content {
+	padding: 12% 15%;
+	text-align: center;
+}
+
+.screen-error-icon {
+	font-size: 8em;
+	margin-bottom: 5%;
+}
+
+/* ------ layout ----- */
+
+.no-border {
+	border-radius: 0;
+}
+
+/* ------ colors ----- */
+
+.white-text {
+	color: #FFFFFF;
+}
+
+.black-text {
+	color: #222222;
+}
+
+.alert-title {
+	font-size: 2rem;
+	color: white;
+}
+
+/* ------ fonts ------ */
+
+.anton-text {
+	font-family: 'Anton', sans-serif;
+}
+
+.oswald-text {
+	font-family: 'Oswald', sans-serif;
+}
+
+/* ------ Login ------- */
+.sc-login {
+	width: 35%;
+	margin: 10% auto;
+	padding: 25px 25px;
+	background: #eeeeee;
+}
+
+.frm-textfield {
+	border-radius: 0;
+	border: 1px solid #222222;
+	background: #ffffff;
+}
+
+.btn-login {
+	font-size: 15pt;
+}
+
+.f-password {
+	width: 100%;
+	text-align: center;
+	font-size: 12pt;
+}
