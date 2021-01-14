@@ -10,6 +10,8 @@ const swig = require('swig'),
 	  config = require('./auth/config'),
 	  application = express()
 
+const router = express.Router()
+
 class Server {
 	constructor () {
 		this.init()
@@ -38,6 +40,7 @@ class Server {
 	setRoutes () {
 		application.use('/', routes.base)
 		application.use('/api', routes.api)
+		application.use('/', routes.error)
 	}
 
 	start () {

@@ -44,7 +44,7 @@ class UserRepository {
 				}).catch ((error) => {
 					throw error
 				})
-
+				
 				resolve ({
 					data: users,
 					success: false

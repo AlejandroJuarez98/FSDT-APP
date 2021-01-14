@@ -17,13 +17,18 @@ $(document).ready(function (event) {
 		case '/dashboard':
 			authentication ()
 			dashboard()
-		break
+			break
 		case '/users':
 			authentication ()
-		break
+			getUsers ()
+			break
 		case '/products':
 			authentication ()
-		break
+			break
+		case '/users/save':
+			authentication ()
+			saveUser()
+			break
 		case '/reset-password':
 			resetPasssword ()
 			break
@@ -140,42 +145,64 @@ function changePassword (uid) {
 }
 
 function getUsers () {
-	authentication ()
-
+	var _token = window.localStorage.getItem('_token')
 
 	$.ajax ({
 		url: '/api/user/get-users',
 		method: 'GET',
+		data: null,
+		headers: {
+			authorization: _token
+		},
 		success: function (result) {
-			console.log(result)
+			var object = result.data.data
+
+			for (var i = 0; i < object.length; i ++) {
+				$("<tr>" +
+				  	"<td>" + object[i].id + "</td>" +
+				  	"<td>" + object[i].fullname + "</td>" +
+				  	"<td>" + object[i].email + "</td>" +
+				  	"<td>" + object[i].birthdate + "</td>" +
+				  "</tr>").appendTo("#data-rows")
+			}
 		}
 	})
 }
 
 function saveUser () {
 	$('#save').on('click', function (event) {
-		let object = {
-			fullname: $('#fullname').val(),
-			birthdate: $('#birthdate').val(),
-			password: $('#password').val(),
+		event.preventDefault()
+
+		var object = {
+			state: 1,
 			email: $('#email').val(),
-			confirm: $('#confirm').val()
+			confirm: $('#confirm').val(),
+			fullname: $('#fullname').val(),
+			password: $('#password').val(),
+			birthdate: $('#birthdate').val()
 		}
+
+		var _token = window.localStorage.getItem('_token')
 
 		if (object.fullname.trim().length == 0 || object.birthdate.trim().length == 0 || object.password.trim().length == 0 || object.email.trim().length == 0 || object.confirm.trim().length == 0) {
 			swal("¡Error!", "Completar todos los campos del formulario", 'error')
 			return
 		}
 
-		if (object.password.includes(object.confirm)) {
-			swal("¡Error!", "Completar todos los campos del formulario", 'error')
+		if (!object.password.includes(object.confirm)) {
+			swal("¡Error!", "Las contraseñas no coinsiden", 'error')
 			return
 		}
+
+		delete object.confirm
 
 		$.ajax ({
 			url: '/api/user/save',
 			method: 'POST',
 			data: object,
+			headers: {
+				authorization: _token
+			},
 			success: function (result) {
 				swal ("¡Completado!", "Se ha registrado el usuario correctamente", "success")
 					.then ((result) => {
@@ -186,7 +213,7 @@ function saveUser () {
 						birthdate = $('#birthdate').val("")
 
 						setTimeout (function () {
-							window.location.href = '/save'
+							window.location.href = '/users'
 						}, 1000)
 					})
 			}
