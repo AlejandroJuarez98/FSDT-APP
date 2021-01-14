@@ -29,6 +29,10 @@ $(document).ready(function (event) {
 			authentication ()
 			saveUser()
 			break
+		case '/products/save':
+			authentication ()
+			saveProduct()
+			break
 		case '/reset-password':
 			resetPasssword ()
 			break
@@ -219,4 +223,24 @@ function saveUser () {
 			}
 		})
 	})
+}
+
+function saveProduct () {
+	$('#file').on('change', function() {
+		var reader, oFileInput = this
+
+		if(oFileInput.files.length === 0){
+			return
+		}
+
+		reader = new FileReader()
+		reader.onload = function(event) {
+			$('#img-product').attr('src', event.target.result)
+			var str = event.target.result
+			resultado = str.substring(22)
+		}
+
+		reader.readAsDataURL(oFileInput.files[0])
+	})
+
 }

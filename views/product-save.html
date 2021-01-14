@@ -18,20 +18,43 @@
 
 	<div class="container">
 			<div class="row">
-				<div class="col-md-6 mt-5">						
-					<button type="button" class="btn btn-outline-dark"><a href="/products" class="dhs-link"><i class="fas fa-undo-alt mr-2"></i> Regresar</a></button>			
-					<button type="button" class="btn btn-outline-dark"><a href="/products/save" class="dhs-link"> Guardar</a></button>
+				<div class="col-md-6 mt-5">			
+					<button type="button" class="btn btn-outline-dark"><a href="/users" class="dhs-link"><i class="fas fa-undo-alt mr-2"></i> Regresar</a></button>			
+					<button type="button" class="btn btn-outline-dark" id="save">Guardar</button>
 				</div>
 				<div class="col-md-6"></div>	
 			</div>
 
-			<div class="form-control mt-3">
+			<div class="form-control mt-3 p-3">
 				<div class="row">
-					<div class="col-md-6">
-						
+					<div class="col-md-12">
+							<div class="row">
+									<div class="col-md-2">
+										<img src="http://localhost:2000/uploads/image-not-available.jpg" alt="image" id="img-product" class="img-product">
+									</div>
+									<div class="col-md-2 pt-4">
+										<input type="file" id="file" hidden>
+										<button type="button" class="btn btn-outline-info w-100 mb-2" onClick="document.getElementById('file').click()">Cargar imagen</button>
+										<button type="button" class="btn btn-outline-danger w-100 mb-2" onClick="document.getElementById('img-product').src = 'http://localhost:2000/uploads/image-not-available.jpg'">Remover imagen</button>
+									</div>
+							</div>
 					</div>
 					<div class="col-md-6">
-						
+						<label for="name" autocomplete="off" class="form-label anton-text black-text">SKU</label>
+       		 	<input class="form-control mb-4 frm-textfield oswald-text" type="text" id="sku" placeholder="Ingresa tu nombre completo...">
+
+						<label for="name" autocomplete="off" class="form-label anton-text black-text">Producto</label>
+       		 	<input class="form-control mb-4 frm-textfield oswald-text" type="text" id="birthdate" placeholder="Ingresa tu correo electrónico...">
+
+						<label for="password" autocomplete="off" class="form-label anton-text black-text">Cantidad</label>
+       		 	<input class="form-control mb-4 frm-textfield oswald-text" type="text" id="password" placeholder="Ingresa tu contraseña...">
+					</div>
+					<div class="col-md-6">
+						<label for="email" autocomplete="off" class="form-label anton-text black-text">Precio</label>
+        		<input class="form-control mb-4 frm-textfield oswald-text" type="text" id="text" placeholder="Ingresa tu correo electrónico...">
+
+        		<label for="password" autocomplete="off" class="form-label anton-text black-text">Descripción</label>
+       		 	<textarea id="description" rows="5" class="form-control mb-4 frm-textfield oswald-text"></textarea>
 					</div>
 				</div>
 			</div>
