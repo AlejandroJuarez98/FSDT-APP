@@ -10,3 +10,5 @@
 			- Ejecutar: sequelize db:migrate
 	- Requisitos:
 		- Contar con una instalación previa de MySQL Workbeanch
+
+- Descripción de APIREST: <Enlace>
