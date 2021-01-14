@@ -9,11 +9,11 @@ class ProductRepository {
 	static getProductByObject (body) {
 		return new Promise (async (resolve, reject) => {
 			try {
-				let product = await Product.findOne ({
+				let product = await Product.findAll ({
 					attributes: [ 'id', 'sku', 'name', 'quantity', 'price', 'description', 'image' ],
 					offset: parseInt(body.offset),
 					limit: parseInt(body.rowCount), 
-					where: JSON.parse(body.filter)
+					where: body.filter
 				}).catch((error) => {
 					throw error
 				})

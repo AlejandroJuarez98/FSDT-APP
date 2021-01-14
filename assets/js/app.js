@@ -24,6 +24,7 @@ $(document).ready(function (event) {
 			break
 		case '/products':
 			authentication ()
+			getProducts ()
 			break
 		case '/users/save':
 			authentication ()
@@ -153,7 +154,7 @@ function getUsers () {
 
 	$.ajax ({
 		url: '/api/user/get-users',
-		method: 'GET',
+		method: 'POST',
 		data: null,
 		headers: {
 			authorization: _token
@@ -167,6 +168,37 @@ function getUsers () {
 				  	"<td>" + object[i].fullname + "</td>" +
 				  	"<td>" + object[i].email + "</td>" +
 				  	"<td>" + object[i].birthdate + "</td>" +
+				  "</tr>").appendTo("#data-rows")
+			}
+		}
+	})
+}
+
+function getProducts () {
+	var _token = window.localStorage.getItem('_token')
+
+	$.ajax ({
+		url: '/api/products/get-products',
+		method: 'POST',
+		data: {
+			offset: 0,
+			rowCount: 10,
+			filter: null
+		},
+		headers: {
+			authorization: _token
+		},
+		success: function (result) {
+			var object = result.data.data
+
+			for (var i = 0; i < object.length; i ++) {
+				$("<tr>" +
+				  	"<td>" + object[i].id + "</td>" +
+				  	"<td>" + object[i].sku + "</td>" +
+				  	"<td>" + object[i].name + "</td>" +
+				  	"<td>" + object[i].quantity + "</td>" +
+				  	"<td>" + object[i].price + "</td>" +
+				  	"<td>" + object[i].description + "</td>" +
 				  "</tr>").appendTo("#data-rows")
 			}
 		}
@@ -243,4 +275,47 @@ function saveProduct () {
 		reader.readAsDataURL(oFileInput.files[0])
 	})
 
+	$('#save').on('click', function (event) {
+		event.preventDefault()
+
+		var data = new FormData()
+		
+		data.append('sku', $('#sku').val())
+		data.append('name', $('#product').val())
+		data.append('quantity', $('#quantity').val())
+		data.append('price', $('#price').val())
+		data.append('description', $('#description').val())
+		data.append('avatar', $('#file')[0].files[0])
+
+		var _token = window.localStorage.getItem('_token')
+
+		$.ajax ({
+			url: '/api/products/save',
+			enctype: 'multipart/form-data',
+			processData: false,
+			contentType: false,
+			cache: false,
+			method: 'POST',
+			data: data,
+			headers: {
+				authorization: _token
+			},
+			success: function (result) {
+				swal ("¡Completado!", "Se ha registrado el producto correctamente", "success")
+					.then ((result) => {
+						$('#sku').val()
+						$('#name').val()
+						$('#quantity').val()
+						$('#price').val()
+						$('#description').val()
+						document.getElementById('img-product').src = 'http://localhost:2000/uploads/image-not-available.jpg'
+
+						setTimeout (function () {
+							window.location.href = '/users'
+						}, 1000)
+					})
+				
+			}
+		})
+	})
 }
