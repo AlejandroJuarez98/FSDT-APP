@@ -31,6 +31,29 @@ class ProductRepository {
 		})
 	}
 
+	static getProductById (productId) {
+		return new Promise (async (resolve, reject) => {
+			try {
+				let product = await Product.findOne ({
+					attributes: [ 'id', 'sku', 'name', 'quantity', 'price', 'description', 'image' ],
+					where: productId
+				}).catch((error) => {
+					throw error
+				})
+
+				resolve ({
+					data: product,
+					success: true
+				})
+			} catch (error) {
+				reject ({
+					error: error,
+					success: false
+				})
+			}
+		})
+	}
+
 	static save (body, file) {
 		return new Promise (async (resolve, reject) => {
 			try {

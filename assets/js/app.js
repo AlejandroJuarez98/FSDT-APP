@@ -7,6 +7,10 @@ $(document).ready(function (event) {
 		pathname = window.location.pathname.split('/e')[0]	
 	}
 
+	if (typeof parseInt(pathname[pathname.length - 1]) == 'number') {
+		pathname = pathname.substring(0, pathname.length - 2)
+	}
+
 	switch (pathname) {
 		case '/':
 			login ()
@@ -16,7 +20,7 @@ $(document).ready(function (event) {
 			break
 		case '/dashboard':
 			authentication ()
-			dashboard()
+			dashboard ()
 			break
 		case '/users':
 			authentication ()
@@ -28,11 +32,20 @@ $(document).ready(function (event) {
 			break
 		case '/users/save':
 			authentication ()
-			saveUser()
+			saveUser ()
+			break
+		case '/users/update':
+			authentication ()
+			saveUser ()
 			break
 		case '/products/save':
 			authentication ()
-			saveProduct()
+			saveProduct ()
+			break
+		case '/products/update':
+			authentication ()
+			getForm (0)
+			saveProduct ()
 			break
 		case '/reset-password':
 			resetPasssword ()
@@ -80,14 +93,13 @@ function login () {
 			data: { email: user, password: password },
 			success: function (result) {
 				swal("¡Buen trabajo!", "Bienvenido: " + result.data.result.fullname, 'success')
-					.then(function (vaalue) {
+					.then(function (value) {
 						window.localStorage.setItem('_token', 'Bearer ' + result.data._token)
 
 						setTimeout (function () {
 							window.location.href = '/dashboard/'
 						}, 500)
 					})
-				
 			}
 		})
 	})
@@ -154,7 +166,7 @@ function getUsers () {
 
 	$.ajax ({
 		url: '/api/user/get-users',
-		method: 'POST',
+		method: 'GET',
 		data: null,
 		headers: {
 			authorization: _token
@@ -168,6 +180,10 @@ function getUsers () {
 				  	"<td>" + object[i].fullname + "</td>" +
 				  	"<td>" + object[i].email + "</td>" +
 				  	"<td>" + object[i].birthdate + "</td>" +
+				  	"<td>" +
+				  	 	"<button class='btn btn-outline-success mr-3'><a href='/user/update/" + object[i].id + "' class='dhs-link'><i class='fas fa-pencil-alt'></i></a></button>" +
+				  	 	"<button class='btn btn-outline-danger'><a href='/user/delete/" + object[i].id + "' class='dhs-link'><i class='fas fa-times'></i></a></button></td>" +
+				  	"</tr>" +
 				  "</tr>").appendTo("#data-rows")
 			}
 		}
@@ -199,6 +215,9 @@ function getProducts () {
 				  	"<td>" + object[i].quantity + "</td>" +
 				  	"<td>" + object[i].price + "</td>" +
 				  	"<td>" + object[i].description + "</td>" +
+				  	"<td>" +
+				  	 	"<button class='btn btn-outline-success mr-3' id='edit' data-id='" + object[i].id + "'><a href='/products/update/" + object[i].id + "' class='dhs-link'><i class='fas fa-pencil-alt'></i></a></button>" +
+				  	 	"<button class='btn btn-outline-danger' id='delete' data-id='" + object[i].id + "'><a href='/products/delete/" + object[i].id + "' class='dhs-link'><i class='fas fa-times'></i></a></button></td>" +
 				  "</tr>").appendTo("#data-rows")
 			}
 		}
@@ -279,6 +298,8 @@ function saveProduct () {
 		event.preventDefault()
 
 		var data = new FormData()
+		var productId = $('#product-id').val()
+		var url = '/api/products/save'
 		
 		data.append('sku', $('#sku').val())
 		data.append('name', $('#product').val())
@@ -289,8 +310,12 @@ function saveProduct () {
 
 		var _token = window.localStorage.getItem('_token')
 
+		if (productId !== 'null') {
+			url = '/api/products/update/' + productId
+		}
+
 		$.ajax ({
-			url: '/api/products/save',
+			url: url,
 			enctype: 'multipart/form-data',
 			processData: false,
 			contentType: false,
@@ -310,7 +335,7 @@ function saveProduct () {
 						$('#description').val()
 						document.getElementById('img-product').src = 'http://localhost:2000/uploads/image-not-available.jpg'
 
-						setTimeout (function () {
+						setTimeout ( function () {
 							window.location.href = '/users'
 						}, 1000)
 					})
@@ -318,4 +343,30 @@ function saveProduct () {
 			}
 		})
 	})
+}
+
+function getForm (type) {
+	if (type == 0) {
+		var _token = window.localStorage.getItem('_token')
+
+		$.ajax ({
+			url: '/api/products/get-products-by-id/' + $('#product-id').val(),
+			method: 'GET',
+			headers: {
+				authorization: _token
+			},
+			success: function (result) {
+				var object = result.data.data
+
+				$('#sku').val(object.sku)
+				$('#price').val(object.price)
+				$('#product').val(object.name)
+				$('#quantity').val(object.quantity)
+				$('#description').val(object.description)
+				$('#img-product').attr('src', object.image)
+			}
+		})
+	} else {
+
+	}
 }

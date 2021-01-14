@@ -17,9 +17,11 @@
 	</nav>
 
 	<div class="container">
+			<input type="text" id="product-id" value="{{ id }}" hidden />
+
 			<div class="row">
-				<div class="col-md-6 mt-5">			
-					<button type="button" class="btn btn-outline-dark"><a href="/users" class="dhs-link"><i class="fas fa-undo-alt mr-2"></i> Regresar</a></button>			
+				<div class="col-md-6 mt-5">
+					<button type="button" class="btn btn-outline-dark"><a href="/products" class="dhs-link"><i class="fas fa-undo-alt mr-2"></i> Regresar</a></button>			
 					<button type="button" class="btn btn-outline-dark" id="save">Guardar</button>
 				</div>
 				<div class="col-md-6"></div>	
@@ -44,16 +46,16 @@
        		 	<input class="form-control mb-4 frm-textfield oswald-text" type="text" id="sku" placeholder="Ingresa tu nombre completo...">
 
 						<label for="name" autocomplete="off" class="form-label anton-text black-text">Producto</label>
-       		 	<input class="form-control mb-4 frm-textfield oswald-text" type="text" id="product" placeholder="Ingresa tu correo electrónico...">
+       		 	<input class="form-control mb-4 frm-textfield oswald-text" type="text" id="product" placeholder="Ingresa tu product...">
 
 						<label for="password" autocomplete="off" class="form-label anton-text black-text">Cantidad</label>
        		 	<input class="form-control mb-4 frm-textfield oswald-text" type="text" id="quantity" placeholder="Ingresa tu contraseña...">
 					</div>
 					<div class="col-md-6">
-						<label for="email" autocomplete="off" class="form-label anton-text black-text">Precio</label>
+						<label autocomplete="off" class="form-label anton-text black-text">Precio</label>
         		<input class="form-control mb-4 frm-textfield oswald-text" type="text" id="price" placeholder="Ingresa tu correo electrónico...">
 
-        		<label for="password" autocomplete="off" class="form-label anton-text black-text">Descripción</label>
+        		<label autocomplete="off" class="form-label anton-text black-text">Descripción</label>
        		 	<textarea id="description" rows="5" class="form-control mb-4 frm-textfield oswald-text"></textarea>
 					</div>
 				</div>

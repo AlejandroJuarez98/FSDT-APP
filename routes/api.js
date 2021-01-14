@@ -19,9 +19,12 @@ router.put('/user/update-user/:userId', Auth.ensureAuthenticated, Controllers.us
 router.delete('/user/delete-user/:userId', Auth.ensureAuthenticated, Controllers.users.deleteUser)
 router.get('/user/get-user-by-id/:userId', Auth.ensureAuthenticated, Controllers.users.getUserByObject)
 /** Product **/
+router.get('/products/get-product/:id', Auth.ensureAuthenticated, Controllers.products.getProductById)
 router.post('/products/save', Auth.ensureAuthenticated, uploads.single('avatar'), Controllers.products.save)
 router.put('/products/update-product/:id', Auth.ensureAuthenticated, uploads.single('avatar'), Controllers.products.update)
-router.post('/products/get-products', Auth.ensureAuthenticated, Controllers.products.getProductByObject)
+router.post('/products/get-products/', Auth.ensureAuthenticated, Controllers.products.getProductByObject)
+router.get('/products/get-products-by-id/:productId', Auth.ensureAuthenticated, Controllers.products.getProductById)
+
 router.delete('/products/delete-product/:id', Auth.ensureAuthenticated, Controllers.products.deleteProduct)
 
 module.exports = router
