@@ -36,7 +36,7 @@ class ProductRepository {
 			try {
 				let product = await Product.findOne ({
 					attributes: [ 'id', 'sku', 'name', 'quantity', 'price', 'description', 'image' ],
-					where: productId
+					where: { id: productId }
 				}).catch((error) => {
 					throw error
 				})
@@ -89,9 +89,8 @@ class ProductRepository {
 		return new Promise (async (resolve, reject) => {
 			try {
 				if (file == undefined) {
-					file = body.image
+					file = 'http://localhost:2000/uploads/image-not-available.jpg'
 				}
-				
 
 				let result = await Product.update ({
 					sku: body.sku,

@@ -21,7 +21,7 @@ class ProductController {
 	}
 
 	getProductById (request, response, next) {
-		ProductManager.getProductById (request.params.getProductById)
+		ProductManager.getProductById (request.params.productId)
 			.then((result) =>  {
 				response
 					.status(200)

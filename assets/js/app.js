@@ -7,7 +7,7 @@ $(document).ready(function (event) {
 		pathname = window.location.pathname.split('/e')[0]	
 	}
 
-	if (typeof parseInt(pathname[pathname.length - 1]) == 'number') {
+	if (parseInt(pathname[pathname.length - 1])) {
 		pathname = pathname.substring(0, pathname.length - 2)
 	}
 
@@ -44,8 +44,8 @@ $(document).ready(function (event) {
 			break
 		case '/products/update':
 			authentication ()
-			getForm (0)
-			saveProduct ()
+			getForm(0)
+			saveProduct()
 			break
 		case '/reset-password':
 			resetPasssword ()
@@ -249,7 +249,7 @@ function saveUser () {
 			return
 		}
 
-		delete object.confirm
+		delete object.confirm 
 
 		$.ajax ({
 			url: '/api/user/save',
@@ -300,6 +300,7 @@ function saveProduct () {
 		var data = new FormData()
 		var productId = $('#product-id').val()
 		var url = '/api/products/save'
+		var method = 'POST'
 		
 		data.append('sku', $('#sku').val())
 		data.append('name', $('#product').val())
@@ -310,8 +311,9 @@ function saveProduct () {
 
 		var _token = window.localStorage.getItem('_token')
 
-		if (productId !== 'null') {
-			url = '/api/products/update/' + productId
+		if (productId > 0) {
+			url = '/api/products/update-product/' + productId
+			method = 'PUT'
 		}
 
 		$.ajax ({
@@ -320,7 +322,7 @@ function saveProduct () {
 			processData: false,
 			contentType: false,
 			cache: false,
-			method: 'POST',
+			method: method,
 			data: data,
 			headers: {
 				authorization: _token
@@ -335,11 +337,10 @@ function saveProduct () {
 						$('#description').val()
 						document.getElementById('img-product').src = 'http://localhost:2000/uploads/image-not-available.jpg'
 
-						setTimeout ( function () {
-							window.location.href = '/users'
+						setTimeout (function () {
+							window.location.href = '/products'
 						}, 1000)
 					})
-				
 			}
 		})
 	})
@@ -363,10 +364,28 @@ function getForm (type) {
 				$('#product').val(object.name)
 				$('#quantity').val(object.quantity)
 				$('#description').val(object.description)
-				$('#img-product').attr('src', object.image)
+				$('#img-product').attr('src', 'http://localhost:2000/uploads/' + object.image)
 			}
 		})
 	} else {
+		var _token = window.localStorage.getItem('_token')
 
+		$.ajax ({
+			url: '/api/products/get-products-by-id/' + $('#product-id').val(),
+			method: 'GET',
+			headers: {
+				authorization: _token
+			},
+			success: function (result) {
+				var object = result.data.data
+
+				$('#sku').val(object.sku)
+				$('#price').val(object.price)
+				$('#product').val(object.name)
+				$('#quantity').val(object.quantity)
+				$('#description').val(object.description)
+				$('#img-product').attr('src', 'http://localhost:2000/uploads/' + object.image)
+			}
+		})
 	}
 }
