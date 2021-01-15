@@ -9,6 +9,7 @@ $(document).ready(function (event) {
 
 	if (parseInt(pathname[pathname.length - 1])) {
 		pathname = pathname.substring(0, pathname.length - 2)
+		console.log(pathname)
 	}
 
 	switch (pathname) {
@@ -34,7 +35,7 @@ $(document).ready(function (event) {
 			authentication ()
 			saveUser ()
 			break
-		case '/users/update':
+		case '/user/update':
 			authentication ()
 			saveUser ()
 			break
@@ -44,7 +45,7 @@ $(document).ready(function (event) {
 			break
 		case '/products/update':
 			authentication ()
-			getForm(0)
+			getForm (0)
 			saveProduct()
 			break
 		case '/reset-password':
