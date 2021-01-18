@@ -9,7 +9,6 @@ $(document).ready(function (event) {
 
 	if (parseInt(pathname[pathname.length - 1])) {
 		pathname = pathname.substring(0, pathname.length - 2)
-		console.log(pathname)
 	}
 
 	switch (pathname) {
@@ -183,8 +182,8 @@ function getUsers () {
 				  	"<td>" + object[i].birthdate + "</td>" +
 				  	"<td>" +
 				  	 	"<button class='btn btn-outline-success mr-3'><a href='/user/update/" + object[i].id + "' class='dhs-link'><i class='fas fa-pencil-alt'></i></a></button>" +
-				  	 	"<button class='btn btn-outline-danger'><a href='/user/delete/" + object[i].id + "' class='dhs-link'><i class='fas fa-times'></i></a></button></td>" +
-				  	"</tr>" +
+				  	 	"<button class='btn btn-outline-danger' id='delete' data-id='" + object[i].id + "' data-type='1' onclick='deleteRecord (event)'><i class='fas fa-times'></i></button>" +
+				  	"</td>" +
 				  "</tr>").appendTo("#data-rows")
 			}
 		}
@@ -217,8 +216,9 @@ function getProducts () {
 				  	"<td>" + object[i].price + "</td>" +
 				  	"<td>" + object[i].description + "</td>" +
 				  	"<td>" +
-				  	 	"<button class='btn btn-outline-success mr-3' id='edit' data-id='" + object[i].id + "'><a href='/products/update/" + object[i].id + "' class='dhs-link'><i class='fas fa-pencil-alt'></i></a></button>" +
-				  	 	"<button class='btn btn-outline-danger' id='delete' data-id='" + object[i].id + "'><a href='/products/delete/" + object[i].id + "' class='dhs-link'><i class='fas fa-times'></i></a></button></td>" +
+				  	 	"<button class='btn btn-outline-success mr-3' id='edit'><a href='/products/update/" + object[i].id + "' class='dhs-link'><i class='fas fa-pencil-alt'></i></a></button>" +
+				  	 	"<button class='btn btn-outline-danger' id='delete' data-id='" + object[i].id + "' data-type='0' onclick='deleteRecord (event)'><i class='fas fa-times'></i></button>" +
+				  	"</td>" +
 				  "</tr>").appendTo("#data-rows")
 			}
 		}
@@ -347,10 +347,40 @@ function saveProduct () {
 	})
 }
 
-function getForm (type) {
-	if (type == 0) {
-		var _token = window.localStorage.getItem('_token')
+function deleteRecord (event) {
+	var elementId = event.target.parentNode.getAttribute("data-id")
+	var elementType = event.target.parentNode.getAttribute("data-type")
 
+	var _token = window.localStorage.getItem('_token')
+	var url = ""
+
+	if (elementType == 0) {
+		url = '/api/products/delete-product/' + elementId
+	} else {
+		url = '/api/user/delete-user/' + elementId
+	}
+
+	$.ajax ({
+		url: url,
+		method: 'DELETE',
+		headers: {
+			authorization: _token
+		},
+		success: function (result) {
+			swal ("¡Completado!", "Se ha eliminado el registro correctamente", "success")
+				.then ((result) => {
+					setTimeout (function () {
+						window.location.href = (elementType > 0) ? '/users' : '/products'
+					}, 1000)
+				})
+		}
+	})
+}
+
+function getForm (type) {
+	var _token = window.localStorage.getItem('_token')
+	
+	if (type == 0) {
 		$.ajax ({
 			url: '/api/products/get-products-by-id/' + $('#product-id').val(),
 			method: 'GET',
@@ -369,8 +399,6 @@ function getForm (type) {
 			}
 		})
 	} else {
-		var _token = window.localStorage.getItem('_token')
-
 		$.ajax ({
 			url: '/api/products/get-products-by-id/' + $('#product-id').val(),
 			method: 'GET',
