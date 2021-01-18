@@ -34,6 +34,22 @@ class ProductController {
 			})
 	}
 
+	
+	getProductByFilter (request, response, next) {
+		ProductManager.getProductByFilter (request.body)
+			.then((result) => {
+				response
+					.status(200)
+					.json(result)
+			})
+			.catch((error) => {
+				response
+					.status(500)
+					.json(error)
+			})
+	}
+
+
 	save (request, response, next) {
 		let file = (request.file != undefined) ? request.file : null
 		

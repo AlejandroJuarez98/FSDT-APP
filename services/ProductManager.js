@@ -28,6 +28,27 @@ class ProductManager {
 		})
 	}
 
+	static getProductByFilter (body) {
+		return new Promise (async (resolve, reject) => {
+			try {
+				let result = await ProductRepository.getProductByFilter (body)
+					.catch ((error) => {
+						throw error
+					})
+
+				resolve ({
+					success: true,
+					data: result
+				})
+			} catch (error) {
+				reject ({
+					success: false,
+					error: error
+				})
+			}
+		})
+	}
+
 	static getProductById (productId) {
 		return new Promise (async (resolve, reject) => {
 			try {

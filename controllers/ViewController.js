@@ -22,7 +22,7 @@ class Views {
 	}
 
 	userSave (request, response, next) {
-		response.render(path.join(__dirname, '..', 'views', 'user-save.html'), { id: 0 })
+		response.render(path.join(__dirname, '..', 'views', 'user-save.html'), { id: request.params.id || 0 })
 	}
 
 	resetPassword (request, response, next) {
@@ -34,7 +34,7 @@ class Views {
 	}
 
 	productSave (request, response, next) {
-		response.render(path.join(__dirname, '..', 'views', 'product-save.html'), { id: request.params.id })
+		response.render(path.join(__dirname, '..', 'views', 'product-save.html'), { id: request.params.id || 0 })
 	}
 
 	changePassword (request, response, next) {

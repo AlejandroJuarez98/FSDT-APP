@@ -1,10 +1,44 @@
 'use strict'
 
-const sequelize = require('sequelize')
+const { Op } = require('sequelize')
 const Product = require('../models/').PRODUCTS
 
 class ProductRepository {
 	constructor () {}
+
+	static getProductByFilter (body) {
+		return new Promise (async (resolve, reject) => {
+			try {
+				let product = await Product.findAll ({
+					attributes: [ 'id', 'sku', 'name', 'quantity', 'price', 'description', 'image' ],
+					offset: parseInt(body.offset),
+					limit: parseInt(body.rowCount), 
+					where: {
+						[Op.or]: {
+							name: {
+								[Op.like]: '%' + body.filter + '%'
+							},
+							sku: {
+								[Op.like]: '%' + body.filter + '%'
+							}
+						}
+					}
+				}).catch((error) => {
+					throw error
+				})
+
+				resolve ({
+					data: product,
+					success: true
+				})
+			} catch (error) {
+				reject ({
+					error: error,
+					success: false
+				})
+			}
+		})
+	}	
 
 	static getProductByObject (body) {
 		return new Promise (async (resolve, reject) => {

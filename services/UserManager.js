@@ -55,6 +55,7 @@ class UserManager {
 		})
 	}
 
+	
 	static getUserByObject (user) {
 		return new Promise (async (resolve, reject) => {
 			try {

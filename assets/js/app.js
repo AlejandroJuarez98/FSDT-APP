@@ -7,8 +7,8 @@ $(document).ready(function (event) {
 		pathname = window.location.pathname.split('/e')[0]	
 	}
 
-	if (parseInt(pathname[pathname.length - 1])) {
-		pathname = pathname.substring(0, pathname.length - 2)
+	if (pathname.split('/')[3]) {
+		pathname = '/' + pathname.split('/')[1] + '/' + pathname.split('/')[2]
 	}
 
 	switch (pathname) {
@@ -29,14 +29,16 @@ $(document).ready(function (event) {
 		case '/products':
 			authentication ()
 			getProducts ()
+			filter()
 			break
 		case '/users/save':
 			authentication ()
 			saveUser ()
 			break
-		case '/user/update':
+		case '/users/update':
 			authentication ()
 			saveUser ()
+			getForm (1)
 			break
 		case '/products/save':
 			authentication ()
@@ -44,8 +46,8 @@ $(document).ready(function (event) {
 			break
 		case '/products/update':
 			authentication ()
-			getForm (0)
 			saveProduct()
+			getForm (0)
 			break
 		case '/reset-password':
 			resetPasssword ()
@@ -181,7 +183,7 @@ function getUsers () {
 				  	"<td>" + object[i].email + "</td>" +
 				  	"<td>" + object[i].birthdate + "</td>" +
 				  	"<td>" +
-				  	 	"<button class='btn btn-outline-success mr-3'><a href='/user/update/" + object[i].id + "' class='dhs-link'><i class='fas fa-pencil-alt'></i></a></button>" +
+				  	 	"<button class='btn btn-outline-success mr-3'><a href='/users/update/" + object[i].id + "' class='dhs-link'><i class='fas fa-pencil-alt'></i></a></button>" +
 				  	 	"<button class='btn btn-outline-danger' id='delete' data-id='" + object[i].id + "' data-type='1' onclick='deleteRecord (event)'><i class='fas fa-times'></i></button>" +
 				  	"</td>" +
 				  "</tr>").appendTo("#data-rows")
@@ -379,7 +381,7 @@ function deleteRecord (event) {
 
 function getForm (type) {
 	var _token = window.localStorage.getItem('_token')
-	
+
 	if (type == 0) {
 		$.ajax ({
 			url: '/api/products/get-products-by-id/' + $('#product-id').val(),
@@ -395,12 +397,12 @@ function getForm (type) {
 				$('#product').val(object.name)
 				$('#quantity').val(object.quantity)
 				$('#description').val(object.description)
-				$('#img-product').attr('src', 'http://localhost:2000/uploads/' + object.image)
+				$('#img-product').attr('src', object.image)
 			}
 		})
 	} else {
 		$.ajax ({
-			url: '/api/products/get-products-by-id/' + $('#product-id').val(),
+			url: '/api/user/get-user-by-id/' + $('#user-id').val(),
 			method: 'GET',
 			headers: {
 				authorization: _token
@@ -408,13 +410,48 @@ function getForm (type) {
 			success: function (result) {
 				var object = result.data.data
 
-				$('#sku').val(object.sku)
-				$('#price').val(object.price)
-				$('#product').val(object.name)
-				$('#quantity').val(object.quantity)
-				$('#description').val(object.description)
-				$('#img-product').attr('src', 'http://localhost:2000/uploads/' + object.image)
+				$('#fullname').val(object.fullname)
+				$('#birthdate').val(object.birthdate)
+				$('#email').val(object.email)
 			}
 		})
 	}
+}
+
+function filter () {
+	$('#filter').on('keyup', function (event) {
+		var _token = window.localStorage.getItem('_token')
+
+		$.ajax ({
+			url: '/api/products/get-products-by-filter/',
+			method: 'POST',
+			data: {
+				offset: 0,
+				rowCount: 10,
+				filter: event.target.value
+			},
+			headers: {
+				authorization: _token
+			},
+			success: function (result) {
+				var object = result.data.data
+				$('#data-rows').html("")
+
+				for (var i = 0; i < object.length; i ++) {
+					$("<tr>" +
+					  	"<td>" + object[i].id + "</td>" +
+					  	"<td>" + object[i].sku + "</td>" +
+					  	"<td>" + object[i].name + "</td>" +
+					  	"<td>" + object[i].quantity + "</td>" +
+					  	"<td>" + object[i].price + "</td>" +
+					  	"<td>" + object[i].description + "</td>" +
+					  	"<td>" +
+					  	 	"<button class='btn btn-outline-success mr-3' id='edit'><a href='/products/update/" + object[i].id + "' class='dhs-link'><i class='fas fa-pencil-alt'></i></a></button>" +
+					  	 	"<button class='btn btn-outline-danger' id='delete' data-id='" + object[i].id + "' data-type='0' onclick='deleteRecord (event)'><i class='fas fa-times'></i></button>" +
+					  	"</td>" +
+					  "</tr>").appendTo("#data-rows")
+				}
+			}
+		})
+	})
 }
