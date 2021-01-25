@@ -17,7 +17,7 @@ router.post('/user/save', Auth.ensureAuthenticated, Controllers.users.save)
 router.get('/user/get-users', Auth.ensureAuthenticated, Controllers.users.getAllUser)
 router.put('/user/update-user/:userId', Auth.ensureAuthenticated, Controllers.users.updateUser)
 router.delete('/user/delete-user/:userId', Auth.ensureAuthenticated, Controllers.users.deleteUser)
-router.get('/user/get-user-by-id/:userId', Auth.ensureAuthenticated, Controllers.users.getUserByObject)
+router.get('/user/get-user-by-id/:userId', Auth.ensureAuthenticated, Controllers.users.getUserById)
 /** Product **/
 router.get('/products/get-product/:id', Auth.ensureAuthenticated, Controllers.products.getProductById)
 router.post('/products/save', Auth.ensureAuthenticated, uploads.single('avatar'), Controllers.products.save)

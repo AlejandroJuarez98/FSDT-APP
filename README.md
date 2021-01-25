@@ -8,7 +8,12 @@
 			- npm run install-xdevapi
 			- Acceder a workbeanch y crear la base de datos: fsdtdb
 			- Ejecutar: sequelize db:migrate
+			- Ejecutar: sequelize db:seed:all
 	- Requisitos:
 		- Contar con una instalación previa de MySQL Workbeanch
+
+	- Credenciales para el inicio de sesión:
+		- usuario: alejandrojuarezck@gmail.com
+		- pass: contra1231
 
 - Descripción de APIREST: <Enlace>

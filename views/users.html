@@ -6,12 +6,7 @@
 	  <div class="container">
 	    <a class="navbar-brand" href="#">FullStack Developer Test</a>
   		<ul class="navbar-nav mr-auto">
-				<li class="nav-item dropdown font-menu">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Cerrar Sesión</a></li>
-          </ul>
-        </li>
+				<li><a class="dropdown-item" id="lock-sess" href="/" onclick="window.localStorage.removeItem('_token')">Cerrar Sesión</a></li>
   		</ul>
 	  </div>
 	</nav>

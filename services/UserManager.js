@@ -77,6 +77,29 @@ class UserManager {
 		})
 	}
 
+	
+	static getUserById (userId) {
+		return new Promise (async (resolve, reject) => {
+			try {
+				let user = { id: userId }
+				let result = await UserRepository.getUserByObject (user)
+					.catch ((error) => {
+						throw error
+					})
+
+				resolve ({
+					success: true,
+					data: result
+				})
+			} catch (error) {
+				reject ({
+					success: false,
+					error: error
+				})
+			}
+		})
+	}
+
 	static save (body) {
 		return new Promise (async (resolve, reject) => {
 			try {

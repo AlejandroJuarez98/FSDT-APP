@@ -48,6 +48,20 @@ class UserController {
 			})
 	}
 
+	getUserById (request, response, next) {
+		UserManager.getUserById (request.params.userId)
+			.then((result) => {
+				response
+					.status(200)
+					.json(result)
+			})
+			.catch((error) => {
+				response
+					.status(500)
+					.json(error)
+			})
+	}
+
 	getUserByObject (request, response, next) {
 		UserManager.getUserByObject (request.body)
 			.then((result) => {

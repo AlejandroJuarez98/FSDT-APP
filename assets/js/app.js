@@ -11,6 +11,11 @@ $(document).ready(function (event) {
 		pathname = '/' + pathname.split('/')[1] + '/' + pathname.split('/')[2]
 	}
 
+	$('#lock-sess').on('click', function () {
+		window.localStorage.removeItem('_token')
+		window.location.reload()
+	})
+
 	switch (pathname) {
 		case '/':
 			login ()
@@ -397,7 +402,7 @@ function getForm (type) {
 				$('#product').val(object.name)
 				$('#quantity').val(object.quantity)
 				$('#description').val(object.description)
-				$('#img-product').attr('src', object.image)
+				$('#img-product').attr('src', "http://localhost:2000/uploads/" + object.image)
 			}
 		})
 	} else {
